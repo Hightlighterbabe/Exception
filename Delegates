@@ -1,0 +1,37 @@
+using System;
+//Латыпова Виктория
+namespace Delegates
+{
+    class Program
+    {
+        delegate double Value(double radius);
+        public static double CircumferenceOfTheCircle(double radius)
+        {
+            double d = 2 * 3.14 * radius;
+            return d;
+        }
+        public static double CircleArea(double radius)
+        {
+            double s = 3.14 * radius * radius;
+            return s;
+        }
+        public static double BallVolume(double radius)
+        {
+            double v = (4 / 3) * 3.14 * radius * radius * radius;
+            return v;
+        }
+        public static void Main()
+        {
+            double r, circumference, area, volume;
+            Console.WriteLine("Введите радиус");
+            r = Double.Parse(Console.ReadLine());
+            Value delegat = CircumferenceOfTheCircle;
+            circumference = delegat(r);
+            delegat = CircleArea;
+            area = delegat(r);
+            delegat = BallVolume;
+            volume = delegat(r);
+            Console.WriteLine("1.Длина окружности:{0} \n2.Площадь круга:{1} \n3.Объем шара:{2}", circumference, area, volume);
+        }
+    }
+}
