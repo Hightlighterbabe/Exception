@@ -1,0 +1,140 @@
+// Добавьте индексатор в ваш код, в класс station
+using System;
+//Латыпова Виктория
+
+namespace Indexators
+{
+    class Programs
+    {
+        class Trains
+        {
+            class Train
+            {
+                string stationName;
+                string trainName;
+                DateTime time;
+                public string StationName
+                {
+                    get;
+                    set;
+                }
+                public string TrainName
+                {
+                    get;
+                    set;
+                }
+                public DateTime Time
+                {
+                    get;
+                    set;
+                }
+                public void TrainCondition()
+                {
+                    Console.WriteLine();
+                }
+                public void TrainDelay()
+                {
+                    Random random = new Random();
+                    int r = random.Next(5);
+                    if (r == 1)
+                    {
+                        Console.WriteLine("Причина опоздания: снегопад");
+                    }
+                    if (r == 2)
+                    {
+                        Console.WriteLine("Причина опоздания: крутой поворот");
+                    }
+                    if (r == 3)
+                    {
+                        Console.WriteLine("Причина опоздания: технические неисправности");
+                    }
+                    if (r == 4)
+                    {
+                        Console.WriteLine("Причина опоздания: дорожные работы полотна");
+                    }
+                    if (r == 5)
+                    {
+                        Console.WriteLine("Причина опоздания: срыв - стоп крана");
+                    }
+                }
+            }
+            class Station
+            {
+                private Train[] arr;
+                public Index(int n)
+                {
+                    data = new Train[n];
+                }
+                //воть индексатор
+                public Train this[int index]
+                {
+                    get
+                    {
+                        return data[index];
+                    }
+                    set
+                    {
+                        data[index] = value;
+                    }
+               }
+                public Station(int i)
+                {
+                    arr = new Train[i];
+                }
+                public void Add(int i, Train ob)
+                {
+                    arr[i] = ob;
+                }
+                public void Info()
+                {
+                    for (int i = 0; i < arr.Length; i++)
+                    {
+                        for (int j = 0; j < arr.Length; j++)
+                        {
+                            arr[i].TrainCondition();
+                            arr[j].TrainDelay();
+                        }
+                    }
+                }
+            }
+            class Program
+            {
+                static void Main(string[] args)
+                {
+                    Console.WriteLine("Введите количество вагонов: ");
+                    int wagons = int.Parse(Console.ReadLine());
+                    for (int j = 0; j < wagons; j++)
+                    {
+                        Console.WriteLine("Введите наименование {0} вагона : ", j);
+                        Train vag = new Train();
+                        vag.TrainName = Console.ReadLine();
+                    }
+                    Console.WriteLine("Введите количество поездов: ");
+                    int quantity = int.Parse(Console.ReadLine());
+                    Station st = new Station(quantity);
+                    for (int i = 0; i < quantity; i++)
+                    {
+                        Train ob = new Train();
+                        Console.WriteLine("\nВведите наименование поезда: ");
+                        ob.TrainName = Console.ReadLine();
+                        Console.WriteLine("\nВвод станции назначения: ");
+                        ob.StationName = Console.ReadLine();
+                        Console.WriteLine("\nВвод времени прибытия:");
+                        Console.WriteLine("дд/мм/гггг чч:мин:сек");
+                        DateTime arrival = DateTime.Parse(Console.ReadLine());
+                        Console.WriteLine("\nВвод времени отправления:");
+                        Console.WriteLine("дд/мм/гггг чч:мин:сек");
+                        DateTime now = DateTime.Parse(Console.ReadLine());
+                        TimeSpan difference = now - arrival;
+                        Console.WriteLine("\nНаименование вагона: {0} ", ob.TrainName);
+                        Console.WriteLine("Наименование станции прибывания: {0}", ob.StationName);
+                        Console.WriteLine("Время, расчитанное на путь до заданной станции : {0}-", difference);
+                        ob.TrainDelay();
+                        st.Add(i, ob);
+                    }
+                    st.Info();
+                }
+            }
+        }
+    }
+}
