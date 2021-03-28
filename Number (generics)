@@ -1,0 +1,67 @@
+using System;
+using System.Numerics;
+using System.Runtime.CompilerServices;
+
+//Латыпова Виктория
+namespace Generics
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var num = new Number<BigInteger>(7);
+            var num1 = new Number<BigInteger>(6);
+            var result = num.Sub(num1);
+            Console.WriteLine(result.Number);
+
+        }
+    }
+    class Number<A>
+    {
+        public A Num { get; set; }
+
+        public Number()
+        {
+            Num = default(A);
+        }
+        public Number(A a)
+        {
+            Num = a;
+        }
+
+        public Number<A> Add(Number<A> a)
+            
+        {
+            var res=new Number<A>();
+            res.Num = (dynamic) a.Num + (dynamic) Num;
+            return res;
+        }
+
+        public Number<A> Sub(Number<A> a)
+        {
+            var res=new Number<A>();
+            res.Num = (dynamic) Num - (dynamic) a.Num;
+            return res;
+        }
+
+        public int CompareTo(Number<A> a)
+        {
+            if ((dynamic) Num > (dynamic) a.Num)
+            {
+                return 1;
+            }
+            else
+            {
+                if ((dynamic) a.Num > (dynamic) Num)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+
+        }
+    }
+}
